@@ -12,7 +12,7 @@ class Comments_model extends CI_Model {
         parent::__construct();
     }
 
-    function findComments($ds_id) {
+    public function findComments($ds_id) {
         $query = "SELECT * FROM `comments`, `discussions`, `users`
                   WHERE `discussions`.`ds_id` = ?
                    AND `comments`.`ds_id` = `discussions`.`ds_id`
@@ -27,6 +27,17 @@ class Comments_model extends CI_Model {
         } else {
             return false;
         }
+    }
+
+    public function newComment($data){
+
+        //$comment_data = $data;
+        $comment_data = array('cm_body' => $data['cm_body'],
+            'ds_id' => $data['ds_id'],
+            'cm_is_active' => '1',
+            'usr_id' => 2);
+
+        $this->db->insert('comments',$comment_data);
     }
 
 }

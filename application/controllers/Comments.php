@@ -45,7 +45,7 @@ class Comments extends MY_Controller{
                 'ds_id' =>  $this->input->post('ds_id')
             );
 
-            if ($this->comments_model->new_comment($data)) {
+            if ($this->comments->newComment($data)) {
                 redirect('comments/index/'.$ds_id);
             } else {
                 // error

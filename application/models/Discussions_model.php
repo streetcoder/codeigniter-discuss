@@ -64,9 +64,9 @@ class Discussions_model extends CI_Model{
                 $data['usr_id'] = $rows->usr_id;
             }
         } else {
-            $password = random_string('alnum', 16);
 
-            $hash = $this->encrypt->encode($password);
+            $password = random_string('alnum', 16);
+            $hash = password_hash($password, PASSWORD_BCRYPT);
 
             $user_data = array('usr_email' => $data['usr_email'],
                 'usr_name' => $data['usr_name'],
