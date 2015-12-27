@@ -29,6 +29,9 @@ class Comments_model extends CI_Model {
         }
     }
 
+    /*
+     * @todo: need to complete entire this section
+     * */
     public function newComment($data){
 
         //$comment_data = $data;
