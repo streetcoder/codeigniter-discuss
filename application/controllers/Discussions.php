@@ -72,4 +72,14 @@ class Discussions extends MY_Controller
         $this->load->view('layouts/footer');*/
     }
 
+    public function flag() {
+        $ds_id = $this->uri->segment(3);
+        if ($this->discuss->flag($ds_id)) {
+            redirect('discussions/');
+        } else {
+            // error
+            // load view and flash sess error
+        }
+    }
+
 }

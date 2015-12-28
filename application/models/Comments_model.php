@@ -70,4 +70,15 @@ class Comments_model extends CI_Model {
         }
     }
 
+    function flag($cm_id) {
+        $query = "UPDATE `comments`
+                  SET `cm_is_active` = '0'
+                  WHERE `cm_id` = ? ";
+        if ($this->db->query($query,array($cm_id))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

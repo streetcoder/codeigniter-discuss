@@ -98,5 +98,16 @@ class Discussions_model extends CI_Model{
         return $result = $this->db->query($query, array($ds_id));
     }
 
+    public function flag($ds_id){
+        $this->db->where('ds_id',$ds_id);
+
+        if($this->db->update('discussions', array('ds_is_active' => '0'))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 
 }

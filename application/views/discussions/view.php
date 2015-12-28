@@ -25,3 +25,4 @@ SORT: <?php echo anchor('discussions/index/sort/order/' . (($dir == 'ASC') ? 'DE
 
     </tbody>
 </table>
+
