@@ -78,30 +78,42 @@ class Admin extends MY_Controller{
     }
 
     public function dashboard(){
-        echo "Welcome on board";
 
-        echo $this->session->userdata('usr_email');
-        //phpinfo();
-        //print_r($this->session->has_userdata('login_data'));
-        //print_r($_SESSION);
+        if($this->session->has_userdata('login_data') == 1 &&
+            $this->session->userdata('logged_in') == FALSE){
+            redirect('admin/login');
+        }
 
-        /*$data = array(
-            'cart_id' => 5,
-            'cart_email' => 'proshimul@yahoo.com',
-            'cart_in' => FALSE
-        );
+        $page_data['comment_query'] = $this->admin->dashboard_fetch_comments();
+        $page_data['discussion_query'] = $this->admin->dashboard_fetch_discussions();
 
-        $this->session->set_userdata('is_cart',$data);
-
-        $this->session->unset_userdata('is_cart');
-
-        echo '<pre>'.print_r($_SESSION,1).'</pre>';*/
-        //print_r($_SESSION);
-
-
-        //print_r($this->session->has_userdata('is_cart'));
-
+        $this->load->view('layouts/header_login');
+        $this->load->view('layouts/navigation');
+        $this->load->view('admin/dashboard',$page_data);
+        $this->load->view('layouts/footer');
 
     }
+
+    public function update_item() {
+        if($this->session->has_userdata('login_data') == 1 &&
+            $this->session->userdata('logged_in') == FALSE){
+            redirect('admin/login');
+        }
+
+        if ($this->uri->segment(4) == 'allow') {
+            $is_active = 1;
+        } else {
+            $is_active = 0;
+        }
+
+        if ($this->uri->segment(3) == 'ds') {
+            $result = $this->admin->update_discussions($is_active, $this->uri->segment(5));
+        } else {
+            $result = $this->admin->update_comments($is_active, $this->uri->segment(5));
+        }
+
+        redirect('admin');
+    }
+
 
 }
